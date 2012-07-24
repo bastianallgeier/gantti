@@ -1,0 +1,108 @@
+# Gantti 
+
+A simple PHP Gantt Class
+
+## Features
+
+- Generates valid HTML5
+- Very easy to customize with SASS stylesheet
+- Works in all major browsers including IE7, IE8 and IE9
+- No javascript required
+
+## Demo
+
+<http://bastianallgeier.com/gantti>
+
+## Usage
+
+```php
+
+<?php
+
+require('lib/gantti.php'); 
+
+date_default_timezone_set('UTC');
+setlocale(LC_ALL, 'en_US');
+
+$data = array();
+
+$data[] = array(
+  'label' => 'Project 1',
+  'start' => '2012-04-20', 
+  'end'   => '2012-05-12'
+);
+
+$data[] = array(
+  'label' => 'Project 2',
+  'start' => '2012-04-22', 
+  'end'   => '2012-05-22', 
+  'class' => 'important',
+);
+
+$data[] = array(
+  'label' => 'Project 3',
+  'start' => '2012-05-25', 
+  'end'   => '2012-06-20'
+  'class' => 'urgent',
+);
+
+$gantti = new Gantti($data, array(
+  'title'      => 'Demo',
+  'cellwidth'  => 25,
+  'cellheight' => 35
+));
+
+echo $gantti;
+
+?>
+
+```
+
+## Data
+
+Data is defined as an associative array (see the example above).
+
+For each project you get the following options:
+
+- label: The label will be displayed in the sidebar
+- start: The start date. Must be in the following format: YYYY-MM-DD
+- end: The end date. Must be in the following format: YYYY-MM-DD
+- class: An optional class name. (available by default: important, urgent)
+
+
+## Options
+
+### title (optional, default: false)
+
+Set an optional title for your gantt diagram here. 
+It will be displayed in the upper left corner.
+
+### cellwidth (optional, default: 40)
+
+Set the width of all cells.
+
+### cellheight (optional, default: 40)
+
+Set the height of all cells.
+
+### today (optional, default: true)
+
+Show or hide the today marker. It will be displayed by default.
+
+## Styles
+
+The default stylesheet is available as .scss ([SASS](http://sass-lang.com/)) It includes a set of predefined variables, which you can use to adjust the styles very easily.
+
+## Colors
+The default color theme is an adaption of the wonderful 
+[Solarized color theme by Ethan Schoonover](http://ethanschoonover.com/solarized)
+
+## Author
+
+Bastian Allgeier   
+<http://bastianallgeier.com>   
+<http://twitter.com/bastianallgeier>
+
+## License: 
+
+MIT License - <http://www.opensource.org/licenses/mit-license.php>
