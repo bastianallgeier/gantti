@@ -1,0 +1,206 @@
+/* Sass Variables */
+
+$color-background-dark:  #002b36;
+$color-background-light: #073642;
+
+$color-lines:            darken($color-background-dark, 3%);
+$color-today:            #fff;
+
+$color-text:             #93a1a1;
+$color-text-today:       #fff;
+$color-text-label-aside: $color-text;
+$color-text-label-block: #fff;
+$color-text-title:       #fff;
+
+$color-block-default:    #268bd2;
+$color-block-important:  #b58900;
+$color-block-urgent:     #d33682;
+
+$color-scrollbar-back:   $color-background-dark;
+$color-scrollbar-thumb:  #93a1a1;
+
+$aside-width: 200px;
+
+/* gantt styles */
+.gantt {
+  position: relative;
+  overflow: hidden;  
+  color: $color-text;
+  background: $color-background-dark;
+}
+.gantt * {
+  font-weight: normal;
+  margin: 0;
+  padding: 0;  
+}
+.gantt li {
+  list-style: none;
+}
+
+/* optional title */
+.gantt figcaption {
+  position: absolute;
+  top: 25px;
+  left: 20px;
+  font-size: 20px;
+  color: $color-text-title;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+
+/* sidebar */
+.gantt aside {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  width: $aside-width - 1;
+  border-right: 1px solid darken($color-lines, 2%);
+  z-index: 2;
+}
+.gantt aside:before {
+  position: absolute;
+  right: -7px;
+  pointer-events: none;
+  width: 7px;
+  top: 0;
+  bottom: 0;
+  content: "";
+  border-left: 1px solid rgba(255,255,255, .03);
+  background: -webkit-linear-gradient(left, rgba($color-background-dark,.7), rgba($color-background-dark,0));
+     background: -moz-linear-gradient(left, rgba($color-background-dark,.7), rgba($color-background-dark,0));
+          background: linear-gradient(left, rgba($color-background-dark,.7), rgba($color-background-dark,0));
+  z-index: 3;
+}
+.gantt aside .gantt-labels {
+  border-top: 1px solid $color-lines;
+}
+.gantt aside .gantt-label strong {
+  display: block;
+  padding: 0 20px;
+  color: $color-text-label-aside;
+  border-bottom: 1px solid $color-lines;
+}
+
+/* data section */
+.gantt-data {
+  position: relative;
+  overflow-x: scroll;
+  margin-left: $aside-width;
+  white-space: nowrap;
+}
+
+/* data section header */
+.gantt header .gantt-months {
+  overflow: hidden;
+}
+.gantt header .gantt-month {
+  float: left;
+  text-align: center;
+}
+.gantt header .gantt-month strong {
+  display: block;
+  border-right:  1px solid $color-lines;
+  border-bottom: 1px solid $color-lines;
+}
+.gantt header .gantt-day span {
+  text-indent: 0;
+  text-align: center;
+}
+.gantt header .gantt-day.today span {
+  color: $color-text-today;
+}
+
+/* data items */
+.gantt-item {
+  position: relative;
+}
+.gantt-days {
+  overflow: hidden;
+}
+.gantt-day {
+  float: left;
+}
+.gantt-day span {
+  display: block;
+  border-right:  1px solid $color-lines;
+  border-bottom: 1px solid $color-lines;
+  text-indent: -6000px;
+}
+.gantt-day.weekend span {
+  background: $color-background-light;
+}
+
+/* data blocks */
+.gantt-block {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  margin: 4px;
+  border-radius: 3px;
+  -webkit-box-shadow: rgba(0,0,0, .9) 0 2px 6px, rgba(255,255,255, .2) 0 1px 0 inset;
+     -moz-box-shadow: rgba(0,0,0, .9) 0 2px 6px, rgba(255,255,255, .2) 0 1px 0 inset;
+          box-shadow: rgba(0,0,0, .9) 0 2px 6px, rgba(255,255,255, .2) 0 1px 0 inset;
+  opacity: .9;
+}
+.gantt-block-label {
+  display: block;
+  color: $color-text-label-block;
+  padding: 5px 10px;
+}
+
+/* block colors */
+.gantt-block {
+  background: $color-block-default;
+}
+.gantt-block.important {
+  background: $color-block-important;
+}
+.gantt-block.urgent {
+  background: $color-block-urgent;
+}
+
+/* today sign */
+.gantt time {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  background: $color-today;
+  bottom: 0;
+  z-index: 1000;
+  text-indent: -6000px;
+  -webkit-box-shadow: rgba(0,0,0, .3) 0 0 10px;
+     -moz-box-shadow: rgba(0,0,0, .3) 0 0 10px;
+          box-shadow: rgba(0,0,0, .3) 0 0 10px;
+}
+.gantt time:before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: -4px;
+  border-left:  5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top:   5px solid $color-today;
+}
+
+/* scrollbar styles */
+.gantt ::-webkit-scrollbar {    
+  background: $color-scrollbar-back;
+  height: 10px;
+}
+.gantt ::-webkit-scrollbar-thumb {
+  background: $color-scrollbar-thumb;
+  -webkit-box-shadow: rgba(255,255,255, .1) 0 1px 0 inset;
+     -moz-box-shadow: rgba(255,255,255, .1) 0 1px 0 inset;
+          box-shadow: rgba(255,255,255, .1) 0 1px 0 inset;
+}
+
+/* selection styles */
+.gantt ::-moz-selection {
+	background: #fff;
+	color: #000;
+}
+.gantt ::selection {
+	background: #fff;
+	color: #000;
+}
