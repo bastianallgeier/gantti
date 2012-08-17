@@ -162,7 +162,7 @@ class Gantti {
       $offset = (($today->timestamp - $this->first->month()->timestamp) / $this->seconds); 
       $left   = round($offset * $this->options['cellwidth']) + round(($this->options['cellwidth'] / 2) - 1);
           
-      if($today->timestamp > $this->first->timestamp && $today->timestamp < $this->last->timestamp) {
+      if($today->timestamp > $this->first->month()->firstDay()->timestamp && $today->timestamp < $this->last->month()->lastDay()->timestamp) {
         $html[] = '<time style="top: ' . ($this->options['cellheight'] * 2) . 'px; left: ' . $left . 'px" datetime="' . $today->format('Y-m-d') . '">Today</time>';
       }
 
