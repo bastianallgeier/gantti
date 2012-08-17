@@ -80,6 +80,9 @@ $aside-width: 200px;
   padding: 0 20px;
   color: $color-text-label-aside;
   border-bottom: 1px solid $color-lines;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* data section */

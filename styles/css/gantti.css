@@ -55,7 +55,10 @@
   display: block;
   padding: 0 20px;
   color: #93a1a1;
-  border-bottom: 1px solid #001f27; }
+  border-bottom: 1px solid #001f27;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
 
 /* data section */
 .gantt-data {
