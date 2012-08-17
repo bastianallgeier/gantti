@@ -98,7 +98,7 @@
   display: block;
   border-right: 1px solid #001f27;
   border-bottom: 1px solid #001f27;
-  text-indent: -6000px; }
+  text-indent: -12000px; }
 
 .gantt-day.weekend span {
   background: #073642; }
@@ -138,7 +138,7 @@
   background: white;
   bottom: 0;
   z-index: 1000;
-  text-indent: -6000px;
+  text-indent: -12000px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 0 10px;
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 0 10px;
   box-shadow: rgba(0, 0, 0, 0.3) 0 0 10px; }
