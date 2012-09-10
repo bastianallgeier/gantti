@@ -40,7 +40,7 @@ $gantti = new Gantti($data, array(
 
 </header>
 
-<?php echo $gantti ?>
+<?php echo $gantti->render(); ?>
 
 <article>
 

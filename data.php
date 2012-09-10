@@ -15,6 +15,12 @@ $data[] = array(
 );
 
 $data[] = array(
+  'label' => 'Project 2',
+  'start' => '2012-05-25', 
+  'end'   => '2012-05-30'
+);
+
+$data[] = array(
   'label' => 'Project 3',
   'start' => '2012-05-25', 
   'end'   => '2012-06-20'
