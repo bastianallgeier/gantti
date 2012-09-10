@@ -245,5 +245,7 @@ class Gantti {
 	}
 
 
-
+ function __toString() {
+    return $this->render();
+  }
 }
