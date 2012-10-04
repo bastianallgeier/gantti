@@ -19,7 +19,7 @@ $gantti = new Gantti($data, array(
 <html lang="en">
 <head>
   
-  <title>Mahatma Gantti</title>
+  <title>Mahatma Gantti – A simple PHP Gantt Class</title>
   <meta charset="utf-8" />
 
   <link rel="stylesheet" href="styles/css/screen.css" />
@@ -145,6 +145,11 @@ echo htmlentities(trim($code)); ?>
 The default stylesheet is available as .scss (<a href="http://sass-lang.com/">SASS</a>)
 It includes a set of predefined variables, which you can use to adjust the styles very easily. 
 </p>
+<p>
+You can check out the full SASS file over here: 
+<a href="https://github.com/bastianallgeier/gantti/blob/master/styles/scss/gantti.scss">https://github.com/bastianallgeier/gantti/blob/master/styles/scss/gantti.scss</a>
+</p>
+
 
 <h2>Colors</h2>
 
@@ -164,6 +169,8 @@ Bastian Allgeier<br />
 MIT License – <a href="http://www.opensource.org/licenses/mit-license.php">http://www.opensource.org/licenses/mit-license.php</a>
 
 </article>
+
+<a href="https://github.com/bastianallgeier/gantti"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
 </body>
 

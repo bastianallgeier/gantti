@@ -55,7 +55,7 @@ $aside-width: 200px;
   bottom: 0;
   top: 0;
   width: $aside-width - 1;
-  border-right: 1px solid darken($color-lines, 2%);
+  border-right: 1px solid darken($color-lines, 5%);
   z-index: 2;
 }
 .gantt aside:before {
