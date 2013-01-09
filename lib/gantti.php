@@ -1,6 +1,6 @@
 <?php
 
-require('calendar.php'); 
+require('calendar.php');
 
 class Gantti {
 
@@ -16,49 +16,50 @@ class Gantti {
   var $seconds   = 0;
 
   function __construct($data, $params=array()) {
-    
+
     $defaults = array(
       'title'      => false,
       'cellwidth'  => 40,
       'cellheight' => 40,
       'today'      => true,
+      'milestones' => array()
     );
-        
-    $this->options = array_merge($defaults, $params);    
+
+    $this->options = array_merge($defaults, $params);
     $this->cal     = new Calendar();
     $this->data    = $data;
     $this->seconds = 60*60*24;
 
     $this->cellstyle = 'style="width: ' . $this->options['cellwidth'] . 'px; height: ' . $this->options['cellheight'] . 'px"';
-    
-    // parse data and find first and last date  
-    $this->parse();                
-                    
+
+    // parse data and find first and last date
+    $this->parse();
+
   }
 
   function parse() {
-    
+
     foreach($this->data as $d) {
-              
+
       $this->blocks[] = array(
         'label' => $d['label'],
         'start' => $start = strtotime($d['start']),
         'end'   => $end   = strtotime($d['end']),
         'class' => @$d['class']
       );
-      
+
       if(!$this->first || $this->first > $start) $this->first = $start;
       if(!$this->last  || $this->last  < $end)   $this->last  = $end;
-          
+
     }
-    
+
     $this->first = $this->cal->date($this->first);
     $this->last  = $this->cal->date($this->last);
 
     $current = $this->first->month();
     $lastDay = $this->last->month()->lastDay()->timestamp;
 
-    // build the months      
+    // build the months
     while($current->lastDay()->timestamp <= $lastDay) {
       $month = $current->month();
       $this->months[] = $month;
@@ -67,19 +68,19 @@ class Gantti {
       }
       $current = $current->next();
     }
-        
+
   }
 
   function render() {
-    
+
     $html = array();
-    
-    // common styles    
+
+    // common styles
     $cellstyle  = 'style="line-height: ' . $this->options['cellheight'] . 'px; height: ' . $this->options['cellheight'] . 'px"';
     $wrapstyle  = 'style="width: ' . $this->options['cellwidth'] . 'px"';
     $totalstyle = 'style="width: ' . (count($this->days)*$this->options['cellwidth']) . 'px"';
-    // start the diagram    
-    $html[] = '<figure class="gantt">';    
+    // start the diagram
+    $html[] = '<figure class="gantt">';
 
     // set a title if available
     if($this->options['title']) {
@@ -90,14 +91,14 @@ class Gantti {
     $html[] = '<aside>';
     $html[] = '<ul class="gantt-labels" style="margin-top: ' . (($this->options['cellheight']*2)+1) . 'px">';
     foreach($this->blocks as $i => $block) {
-      $html[] = '<li class="gantt-label"><strong ' . $cellstyle . '>' . $block['label'] . '</strong></li>';      
+      $html[] = '<li class="gantt-label"><strong ' . $cellstyle . '>' . $block['label'] . '</strong></li>';
     }
     $html[] = '</ul>';
     $html[] = '</aside>';
 
     // data section
     $html[] = '<section class="gantt-data">';
-        
+
     // data header section
     $html[] = '<header>';
 
@@ -105,8 +106,8 @@ class Gantti {
     $html[] = '<ul class="gantt-months" ' . $totalstyle . '>';
     foreach($this->months as $month) {
       $html[] = '<li class="gantt-month" style="width: ' . ($this->options['cellwidth'] * $month->countDays()) . 'px"><strong ' . $cellstyle . '>' . $month->name() . '</strong></li>';
-    }                      
-    $html[] = '</ul>';    
+    }
+    $html[] = '</ul>';
 
     // days headers
     $html[] = '<ul class="gantt-days" ' . $totalstyle . '>';
@@ -116,19 +117,19 @@ class Gantti {
       $today   = ($day->isToday())   ? ' today' : '';
 
       $html[] = '<li class="gantt-day' . $weekend . $today . '" ' . $wrapstyle . '><span ' . $cellstyle . '>' . $day->padded() . '</span></li>';
-    }                      
-    $html[] = '</ul>';    
-    
+    }
+    $html[] = '</ul>';
+
     // end header
     $html[] = '</header>';
 
     // main items
     $html[] = '<ul class="gantt-items" ' . $totalstyle . '>';
-        
+
     foreach($this->blocks as $i => $block) {
-      
+
       $html[] = '<li class="gantt-item">';
-      
+
       // days
       $html[] = '<ul class="gantt-days">';
       foreach($this->days as $day) {
@@ -137,8 +138,8 @@ class Gantti {
         $today   = ($day->isToday())   ? ' today' : '';
 
         $html[] = '<li class="gantt-day' . $weekend . $today . '" ' . $wrapstyle . '><span ' . $cellstyle . '>' . $day . '</span></li>';
-      }                      
-      $html[] = '</ul>';    
+      }
+      $html[] = '</ul>';
 
       // the block
       $days   = (($block['end'] - $block['start']) / $this->seconds);
@@ -150,34 +151,67 @@ class Gantti {
       $class  = ($block['class']) ? ' ' . $block['class'] : '';
       $html[] = '<span class="gantt-block' . $class . '" style="left: ' . $left . 'px; width: ' . $width . 'px; height: ' . $height . 'px"><strong class="gantt-block-label">' . $days . '</strong></span>';
       $html[] = '</li>';
-    
+
     }
-    
-    $html[] = '</ul>';    
-    
+
+    $html[] = '</ul>';
+
+    // Add lines for Milestones!
+    if (!empty($this->options['milestones']))
+    {
+      foreach ($this->options['milestones'] as $milestone_date)
+      {
+        $html[] = $this->addMilestone($milestone_date);
+      }
+    }
+
+
     if($this->options['today']) {
-    
+
       // today
       $today  = $this->cal->today();
-      $offset = (($today->timestamp - $this->first->month()->timestamp) / $this->seconds); 
+      $offset = (($today->timestamp - $this->first->month()->timestamp) / $this->seconds);
       $left   = round($offset * $this->options['cellwidth']) + round(($this->options['cellwidth'] / 2) - 1);
-          
+
       if($today->timestamp > $this->first->month()->firstDay()->timestamp && $today->timestamp < $this->last->month()->lastDay()->timestamp) {
         $html[] = '<time style="top: ' . ($this->options['cellheight'] * 2) . 'px; left: ' . $left . 'px" datetime="' . $today->format('Y-m-d') . '">Today</time>';
       }
 
     }
-    
+
     // end data section
-    $html[] = '</section>';    
+    $html[] = '</section>';
 
     // end diagram
     $html[] = '</figure>';
 
     return implode('', $html);
-      
+
   }
-  
+
+  /**
+   * adds a milestone as a white line to the chart.
+   *
+   * @author 	rfiala <roland.fiala@googlemail.com>
+   * @since		2013-01-09
+   *
+   * @param		date	$milestone_date
+   *
+   * @todo		add milestone_label for hover effect.
+   */
+  function addMilestone($milestone_date)
+  {
+  	// get the first day in the gantt chart.
+  	$gantt_start = $this->days[0]->yearINT . "-" . $this->days[0]->monthINT . "-" . $this->days[0]->dayINT;
+
+  	// How much days are between the start date and the milestone date?
+  	$offset = (strtotime($milestone_date) - strtotime($gantt_start)) / 60 / 60 / 24;
+
+  	$today  = $this->cal->today();
+  	$left   = round($offset * $this->options['cellwidth']) + round(($this->options['cellwidth'] / 2) - 1);
+  	return '<time style="top: ' . ($this->options['cellheight'] * 2) . 'px; left: ' . $left . 'px" datetime="' . $today->format('Y-m-d') . '">Milestone</time>';
+  }
+
   function __toString() {
     return $this->render();
   }
