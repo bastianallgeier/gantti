@@ -1,6 +1,13 @@
-# Gantti 
+# Loopfirst's Version of Gantt forked
 
 A simple PHP Gantt Class
+
+
+# Start
+
+Mac: `php -S localhost:1234`
+
+Windows: uhhh... I'll figure it out
 
 ## Features
 
