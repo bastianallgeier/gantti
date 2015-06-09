@@ -48,6 +48,8 @@ $gantti = new Gantti($data, array(
 
 <p>
   You can download the source for Gantti form Github:<br />
+  <a href="https://github.com/pandigresik/gantti"><strong>https://github.com/pandigresik/gantti</strong></a>
+  fork from
   <a href="https://github.com/bastianallgeier/gantti"><strong>https://github.com/bastianallgeier/gantti</strong></a>
 </p>
 
@@ -71,28 +73,51 @@ require('lib/gantti.php');
 
 date_default_timezone_set('UTC');
 setlocale(LC_ALL, 'en_US');
-
-\$data = array();
-
-\$data[] = array(
-  'label' => 'Project 1',
-  'start' => '2012-04-20', 
-  'end'   => '2012-05-12'
+\$data = 
+array(
+	array(
+	  'label' => 'Project 1',
+	  'content' => array(
+			array(		
+			'start' => '2012-04-20', 
+			'end'   => '2012-05-12',
+			'text'  => 'ok'
+			),
+			array(		
+			'start' => '2012-05-15', 
+			'end'   => '2012-05-22',
+			'class' => 'urgent'
+			),
+			array(		
+			'start' => '2012-05-25', 
+			'end'   => '2012-06-01',
+			'class' => 'important'
+			),
+		)
+	),
+	array(
+	  'label' => 'Project 2',
+	  'content' => array(
+			array(		
+			'start' => '2012-04-10', 
+			'end'   => '2012-04-19',
+			'text'  => 'ok'
+			),
+			array(		
+			'start' => '2012-05-10', 
+			'end'   => '2012-05-20',
+			'class' => 'urgent'
+			),
+			array(		
+			'start' => '2012-05-21', 
+			'end'   => '2012-06-01',
+			'class' => 'important',
+			'text' => 'rest'
+			),
+		)
+	),
 );
 
-\$data[] = array(
-  'label' => 'Project 2',
-  'start' => '2012-04-22', 
-  'end'   => '2012-05-22', 
-  'class' => 'important',
-);
-
-\$data[] = array(
-  'label' => 'Project 3',
-  'start' => '2012-05-25', 
-  'end'   => '2012-06-20'
-  'class' => 'urgent',
-);
 
 \$gantti = new Gantti(\$data, array(
   'title'      => 'Demo',
