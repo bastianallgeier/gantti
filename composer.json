@@ -1,0 +1,11 @@
+{
+  "name": "bastianallgeier/gantti",
+  "description": "A simple PHP Gantt Class",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Bastian Allgeier"
+    }
+  ]
+}
