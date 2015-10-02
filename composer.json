@@ -1,8 +1,13 @@
 {
   "name": "bastianallgeier/gantti",
   "description": "A simple PHP Gantt Class",
+  "keywords": ["gantt", "project-management", "chart"],
+  "homepage": "http://bastianallgeier.com",
   "minimum-stability": "stable",
   "license": "MIT",
+  "require": {
+    "php": ">=5.5.26"
+  },
   "authors": [
     {
       "name": "Bastian Allgeier"
